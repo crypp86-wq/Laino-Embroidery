@@ -1,0 +1,2109 @@
+<!doctype html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laino — Embroidery Studio Tbilisi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg-dark: #08080a;
+        --bg-card: rgba(255, 255, 255, 0.02);
+        --border-subtle: rgba(255, 255, 255, 0.08);
+        --text-cream: #e6dfd3;
+        --text-muted: #8d98a7;
+        --accent-gold: #d4af37;
+        --font-english: "Libre Baskerville", serif;
+        --font-georgian: "Google Sans", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-style: normal !important;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: var(--bg-dark) !important;
+        color: var(--text-cream) !important;
+        font-family: var(--font-georgian);
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      .lang-en,
+      [data-lang="en"] {
+        font-family: var(--font-english) !important;
+      }
+      .lang-ka,
+      [data-lang="ka"] {
+        font-family: var(--font-georgian) !important;
+      }
+
+      .bg-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background:
+          radial-gradient(
+            circle at 50% 10%,
+            rgba(212, 175, 55, 0.06) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 85% 75%,
+            rgba(30, 41, 59, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 15% 50%,
+            rgba(15, 23, 42, 0.4) 0%,
+            transparent 50%
+          );
+      }
+      .bg-overlay::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(
+          rgba(255, 255, 255, 0.03) 1px,
+          transparent 1px
+        );
+        background-size: 32px 32px;
+        opacity: 0.7;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .nav-link {
+        position: relative;
+        transition: color 0.3s ease;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 1.5px;
+        background-color: var(--accent-gold);
+        transition: width 0.3s ease;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .glass-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 12px;
+        backdrop-filter: blur(12px);
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .glass-card:hover {
+        border-color: rgba(212, 175, 55, 0.35);
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .btn-gold {
+        background: #e6dfd3;
+        color: #08080a;
+        border: 1px solid #e6dfd3;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+      .btn-gold:hover {
+        background: #ffffff;
+        box-shadow: 0 0 20px rgba(230, 223, 211, 0.25);
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: #e6dfd3;
+        border: 1px solid var(--border-subtle);
+        transition: all 0.3s ease;
+      }
+      .btn-outline:hover {
+        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.04);
+        transform: translateY(-2px);
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(0%);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      .animate-marquee-track {
+        display: flex;
+        width: max-content;
+        animation: marquee 35s linear infinite;
+      }
+      .animate-marquee-track:hover {
+        animation-play-state: paused;
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #08080a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #222;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body class="flex flex-col min-h-screen lang-ka">
+    <div class="bg-overlay"></div>
+
+    <!-- Announcement Ticker -->
+    <div
+      class="bg-[#050507] border-b border-white/5 py-2.5 text-[10px] md:text-xs uppercase tracking-widest text-[#8d98a7] overflow-hidden"
+    >
+      <div class="animate-marquee-track whitespace-nowrap">
+        <span class="mx-6" data-i18n="announcement1"
+          >LAINO EMBROIDERY STUDIO • თბილისი, საქართველო</span
+        >
+        <span class="text-[#d4af37]">•</span>
+        <span class="mx-6" data-i18n="announcement2"
+          >პერსონალური დიზაინები • მოგვწერეთ სოციალურ ქსელებში</span
+        >
+        <span class="text-[#d4af37]">•</span>
+        <span class="mx-6" data-i18n="announcement3"
+          >ადგილობრივი მიწოდება მთელ საქართველოში</span
+        >
+        <span class="text-[#d4af37]">•</span>
+        <span class="mx-6" data-i18n="announcement1"
+          >LAINO EMBROIDERY STUDIO • თბილისი, საქართველო</span
+        >
+        <span class="text-[#d4af37]">•</span>
+        <span class="mx-6" data-i18n="announcement2"
+          >პერსონალური დიზაინები • მოგვწერეთ სოციალურ ქსელებში</span
+        >
+        <span class="text-[#d4af37]">•</span>
+        <span class="mx-6" data-i18n="announcement3"
+          >ადგილობრივი მიწოდება მთელ საქართველოში</span
+        >
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header
+      class="sticky top-0 left-0 w-full z-50 bg-[#08080a]/90 backdrop-blur-md border-b border-white/10 h-20 flex items-center"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 w-full flex justify-between items-center"
+      >
+        <a
+          href="index.html"
+          class="flex items-center h-full overflow-visible py-1"
+        >
+          <img
+            src="./images/laino.png"
+            alt="Laino Embroidery"
+            class="h-28 md:h-36 w-auto object-contain max-w-none -my-8 scale-110 brightness-125"
+          />
+        </a>
+
+        <nav class="hidden md:flex gap-8 text-xs uppercase tracking-widest">
+          <a
+            href="index.html"
+            class="nav-link text-[#E6DFD3]/80 hover:text-[#E6DFD3] py-1"
+            data-i18n="navHome"
+            >მთავარი</a
+          >
+          <a
+            href="catalog.html"
+            class="nav-link text-[#E6DFD3]/80 hover:text-[#E6DFD3] py-1"
+            data-i18n="navArchive"
+            >კატალოგი</a
+          >
+          <a
+            href="#delivery"
+            class="nav-link text-[#E6DFD3]/80 hover:text-[#E6DFD3] py-1"
+            data-i18n="navDelivery"
+            >ვადები და პერსონალიზაცია</a
+          >
+          <a
+            href="#services"
+            class="nav-link text-[#E6DFD3]/80 hover:text-[#E6DFD3] py-1"
+            data-i18n="navServices"
+            >სერვისები</a
+          >
+          <a
+            href="#about"
+            class="nav-link text-[#E6DFD3]/80 hover:text-[#E6DFD3] py-1"
+            data-i18n="navAtelier"
+            >ატელიე</a
+          >
+          <a
+            href="#contact"
+            class="nav-link text-[#E6DFD3]/80 hover:text-[#E6DFD3] py-1"
+            data-i18n="navContact"
+            >კონტაქტი</a
+          >
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <button
+            onclick="openCartModal()"
+            class="btn-outline px-4 py-2 rounded-full text-xs uppercase tracking-widest flex items-center gap-2"
+          >
+            🛒 <span id="cart-count">0</span>
+          </button>
+
+          <button
+            onclick="toggleLanguage()"
+            id="lang-btn"
+            class="flex items-center gap-2 text-xs uppercase tracking-widest border border-white/10 px-3.5 py-1.5 rounded-full text-[#E6DFD3] bg-white/[0.02]"
+          >
+            <span id="lang-flag" class="text-sm">🇬🇧</span>
+            <span id="lang-text" class="font-medium">EN</span>
+          </button>
+
+          <button
+            onclick="toggleMobileMenu()"
+            class="md:hidden text-[#E6DFD3] focus:outline-none p-1"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-[#08080a] border-b border-white/10 px-6 py-6 flex flex-col gap-4 text-xs uppercase tracking-widest absolute top-full left-0 w-full shadow-2xl"
+      >
+        <a
+          href="index.html"
+          onclick="toggleMobileMenu()"
+          class="text-[#E6DFD3]"
+          data-i18n="navHome"
+          >მთავარი</a
+        >
+        <a
+          href="catalog.html"
+          onclick="toggleMobileMenu()"
+          class="text-[#E6DFD3]"
+          data-i18n="navArchive"
+          >კატალოგი</a
+        >
+        <a
+          href="#delivery"
+          onclick="toggleMobileMenu()"
+          class="text-[#E6DFD3]"
+          data-i18n="navDelivery"
+          >ვადები და პერსონალიზაცია</a
+        >
+        <a
+          href="#services"
+          onclick="toggleMobileMenu()"
+          class="text-[#E6DFD3]"
+          data-i18n="navServices"
+          >სერვისები</a
+        >
+        <a
+          href="#about"
+          onclick="toggleMobileMenu()"
+          class="text-[#E6DFD3]"
+          data-i18n="navAtelier"
+          >ატელიე</a
+        >
+        <a
+          href="#contact"
+          onclick="toggleMobileMenu()"
+          class="text-[#E6DFD3]"
+          data-i18n="navContact"
+          >კონტაქტი</a
+        >
+      </div>
+    </header>
+
+    <main class="flex-grow">
+      <!-- Hero Section -->
+      <section
+        id="hero"
+        class="min-h-[75vh] flex items-center justify-center relative py-16"
+      >
+        <div
+          class="max-w-5xl mx-auto px-6 text-center flex flex-col items-center justify-center reveal"
+        >
+          <div
+            class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 mb-8"
+          >
+            <span
+              class="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"
+            ></span>
+            <span
+              class="text-xs uppercase tracking-widest text-[#8d98a7]"
+              data-i18n="heroBadge"
+              >LAINO EMBROIDERY STUDIO • თბილისი</span
+            >
+          </div>
+          <h1
+            class="text-4xl sm:text-6xl md:text-7xl font-normal tracking-tight text-[#E6DFD3] leading-[1.15] mb-8 max-w-4xl"
+          >
+            <span data-i18n="heroTitle1">მზა კოლექცია და</span><br />
+            <span class="text-[#d4af37]" data-i18n="heroTitle2"
+              >პერსონალური დიზაინები</span
+            >
+          </h1>
+          <p
+            class="text-base md:text-lg text-[#8d98a7] max-w-2xl font-light leading-relaxed mb-6"
+            data-i18n="heroSubtitle"
+          >
+            აირჩიეთ სასურველი ნივთი ან მოგვწერეთ თქვენი ინდივიდუალური იდეის
+            მოსაწყობად პირდაპირ სოციალურ ქსელებში.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a
+              href="catalog.html"
+              class="btn-gold px-8 py-3.5 rounded-lg text-xs uppercase tracking-widest font-semibold"
+              data-i18n="heroBtnCatalog"
+              >კატალოგის ნახვა</a
+            >
+            <a
+              href="#contact"
+              class="btn-outline px-8 py-3.5 rounded-lg text-xs uppercase tracking-widest font-semibold"
+              data-i18n="heroBtnCustom"
+              >პერსონალური შეკვეთა</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- Horizontal Marquee Showcase -->
+      <section class="py-20 border-t border-white/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-12 text-center reveal">
+          <h2 class="text-3xl md:text-4xl font-normal text-[#E6DFD3] mb-3">
+            <span data-i18n="showcaseHeader">რჩეული</span>
+            <span class="text-[#d4af37]" data-i18n="showcaseHeaderSub"
+              >კოლექცია</span
+            >
+          </h2>
+          <p
+            class="text-[#8d98a7] text-xs md:text-sm uppercase tracking-widest"
+            data-i18n="showcaseSub"
+          >
+            გააჩერეთ მაუსით • დააკლიკეთ ნივთს კატალოგში გადასასვლელად
+          </p>
+        </div>
+
+        <div class="w-full overflow-hidden relative py-4">
+          <div
+            class="animate-marquee-track flex gap-8 items-center cursor-pointer"
+            onclick="window.location.href = 'catalog.html'"
+          >
+            <div id="marquee-container" class="flex gap-8 items-center"></div>
+            <div
+              id="marquee-container-clone"
+              class="flex gap-8 items-center"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Delivery & Custom Design Information Section -->
+      <section
+        id="delivery"
+        class="py-24 border-t border-white/5 bg-white/[0.01]"
+      >
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="text-center mb-16 reveal">
+            <span
+              class="text-xs uppercase tracking-widest text-[#d4af37] block mb-2"
+              data-i18n="deliveryBadge"
+              >ინფორმაცია და ვადები</span
+            >
+            <h2
+              class="text-3xl md:text-5xl font-normal text-[#E6DFD3]"
+              data-i18n="deliveryHeader"
+            >
+              დამზადება, მიწოდება და პერსონალიზაცია
+            </h2>
+            <p
+              class="text-[#8d98a7] text-xs md:text-sm uppercase tracking-widest mt-3"
+              data-i18n="deliverySub"
+            >
+              გაეცანით ჩვენს ვადებს და დაგვიკავშირდით ინდივიდუალური დიზაინისთვის
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <!-- Production Times Card -->
+            <div
+              class="glass-card p-8 md:p-10 reveal space-y-6 border-l-4 border-l-[#d4af37]"
+            >
+              <div class="flex items-center gap-3">
+                <span class="text-3xl">⏱️</span>
+                <h3
+                  class="text-xl font-medium text-[#E6DFD3]"
+                  data-i18n="prodTitle"
+                >
+                  დამზადების ვადები
+                </h3>
+              </div>
+              <ul class="space-y-4 text-sm text-[#8d98a7]">
+                <li
+                  class="flex justify-between items-center pb-3 border-b border-white/5"
+                >
+                  <span data-i18n="prodItem1"
+                    >პერსონალური დიზაინით მაისურები</span
+                  >
+                  <span
+                    class="text-[#d4af37] font-mono font-semibold"
+                    data-i18n="pTime1"
+                    >3-5 დღე</span
+                  >
+                </li>
+                <li
+                  class="flex justify-between items-center pb-3 border-b border-white/5"
+                >
+                  <span data-i18n="prodItem2">პერსონალური დიზაინით ჰუდები</span>
+                  <span
+                    class="text-[#d4af37] font-mono font-semibold"
+                    data-i18n="pTime2"
+                    >5-7 დღე</span
+                  >
+                </li>
+                <li class="flex justify-between items-center">
+                  <span data-i18n="prodItem3">საიტზე დადებული დიზაინები</span>
+                  <span
+                    class="text-[#d4af37] font-mono font-semibold"
+                    data-i18n="pTime3"
+                    >2-4 დღე</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- Shipping Times Card -->
+            <div
+              class="glass-card p-8 md:p-10 reveal space-y-6 border-l-4 border-l-[#E6DFD3]"
+            >
+              <div class="flex items-center gap-3">
+                <span class="text-3xl">🚀</span>
+                <h3
+                  class="text-xl font-medium text-[#E6DFD3]"
+                  data-i18n="shipTitle"
+                >
+                  მიწოდების ვადები
+                </h3>
+              </div>
+              <ul class="space-y-4 text-sm text-[#8d98a7]">
+                <li
+                  class="flex justify-between items-center pb-3 border-b border-white/5"
+                >
+                  <span data-i18n="shipItem1">მიწოდება თბილისში</span>
+                  <span
+                    class="text-[#E6DFD3] font-mono font-semibold"
+                    data-i18n="sTime1"
+                    >დამზადებიდან 1 დღეში</span
+                  >
+                </li>
+                <li
+                  class="flex justify-between items-center pb-3 border-b border-white/5"
+                >
+                  <span data-i18n="shipItem2">მიწოდება რეგიონებში</span>
+                  <span
+                    class="text-[#E6DFD3] font-mono font-semibold"
+                    data-i18n="sTime2"
+                    >დამზადებიდან 2-4 დღეში</span
+                  >
+                </li>
+                <li
+                  class="flex justify-between items-center text-xs text-[#8d98a7]/70 italic pt-1"
+                >
+                  <span data-i18n="shipNote"
+                    >* მიწოდება ხორციელდება სამუშაო დღეებში</span
+                  >
+                  <span data-i18n="fastService">სწრაფი სერვისი</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Custom Design Callout Banner -->
+          <div
+            class="glass-card p-8 md:p-10 text-center reveal border border-[#d4af37]/40 bg-gradient-to-r from-[#d4af37]/5 via-transparent to-[#d4af37]/5"
+          >
+            <h3
+              class="text-2xl font-normal text-[#E6DFD3] mb-3"
+              data-i18n="customBannerTitle"
+            >
+              გსურთ პერსონალური / ინდივიდუალური დიზაინი?
+            </h3>
+            <p
+              class="text-sm text-[#8d98a7] max-w-2xl mx-auto mb-6"
+              data-i18n="customBannerText"
+            >
+              მოგვწერეთ პირდაპირ ჩვენს სოციალურ ქსელებში ან WhatsApp-ში,
+              გამოგვიგზავნეთ სასურველი სურათი, ლოგო ან იდეა და ჩვენ მას ვქარგავთ
+              უმაღლესი ხარისხით!
+            </p>
+            <div
+              class="flex flex-wrap justify-center gap-4 text-xs font-semibold uppercase tracking-widest"
+            >
+              <a
+                href="https://www.instagram.com/laino.embroidery/"
+                target="_blank"
+                class="btn-gold px-6 py-3 rounded-lg"
+                data-i18n="btnIgText"
+                >Instagram-ში მიწერა</a
+              >
+              <a
+                href="https://www.facebook.com/profile.php?id=61582688068815"
+                target="_blank"
+                class="btn-gold px-6 py-3 rounded-lg"
+                data-i18n="btnFbText"
+                >Facebook-ში მიწერა</a
+              >
+              <a
+                href="https://wa.me/995558519496"
+                target="_blank"
+                class="btn-gold px-6 py-3 rounded-lg flex items-center gap-2"
+                >💬 WhatsApp (+995 558 51 94 96)</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services Section -->
+      <section
+        id="services"
+        class="py-24 border-t border-white/5 bg-white/[0.01]"
+      >
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="text-center mb-16 reveal">
+            <span
+              class="text-xs uppercase tracking-widest text-[#d4af37] block mb-2"
+              data-i18n="servBadge"
+              >რას ვქმნით</span
+            >
+            <h2
+              class="text-3xl md:text-5xl font-normal text-[#E6DFD3]"
+              data-i18n="servHeader"
+            >
+              ხელოვნება და სერვისები
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card p-8 reveal">
+              <div class="text-[#d4af37] text-3xl mb-4">🧵</div>
+              <h3
+                class="text-xl font-medium text-[#E6DFD3] mb-3"
+                data-i18n="serv1Title"
+              >
+                კატალოგის ნივთები
+              </h3>
+              <p
+                class="text-xs md:text-sm text-[#8d98a7]"
+                data-i18n="serv1Desc"
+              >
+                მზა, მაღალი სიმკვრივის ნაქარგი ჰუდები, მაისურები და ტანსაცმელი
+                ჩვენი კოლექციიდან.
+              </p>
+            </div>
+            <div class="glass-card p-8 reveal">
+              <div class="text-[#d4af37] text-3xl mb-4">🏢</div>
+              <h3
+                class="text-xl font-medium text-[#E6DFD3] mb-3"
+                data-i18n="serv2Title"
+              >
+                კორპორატიული ბრენდინგი
+              </h3>
+              <p
+                class="text-xs md:text-sm text-[#8d98a7]"
+                data-i18n="serv2Desc"
+              >
+                ერთიანი გუნდური უნიფორმები, მაღალი სიზუსტის ლოგოები კომპანიებისა
+                და ბუტიკებისთვის.
+              </p>
+            </div>
+            <div class="glass-card p-8 reveal">
+              <div class="text-[#d4af37] text-3xl mb-4">✨</div>
+              <h3
+                class="text-xl font-medium text-[#E6DFD3] mb-3"
+                data-i18n="serv3Title"
+              >
+                ექსკლუზიური პატჩები
+              </h3>
+              <p
+                class="text-xs md:text-sm text-[#8d98a7]"
+                data-i18n="serv3Desc"
+              >
+                ნაქარგი პატჩები გამაგრებული კიდეებითა და უსაფრთხო დასამაგრებელი
+                ვარიანტებით.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="py-24 border-t border-white/5 bg-white/[0.01]">
+        <div class="max-w-5xl mx-auto px-6">
+          <div class="text-center mb-12 reveal">
+            <span
+              class="text-xs uppercase tracking-widest text-[#d4af37] block mb-2"
+              data-i18n="atelierBadge"
+              >ჩვენი ხელობა</span
+            >
+            <h2
+              class="text-3xl md:text-5xl font-normal text-[#E6DFD3]"
+              data-i18n="atelierHeader"
+            >
+              ხარისხი თითოეულ ნაკერში
+            </h2>
+          </div>
+          <div
+            class="glass-card p-8 md:p-12 space-y-6 text-[#8d98a7] text-sm md:text-base reveal"
+          >
+            <p class="text-[#E6DFD3] text-lg" data-i18n="aboutLead">
+              Laino არის დამოუკიდებელი ნაქარგობის სტუდია თბილისში, რომელიც
+              ორიენტირებულია პრემიუმ ხარისხის ტექსტილსა და დეტალიზებულ დიზაინზე.
+            </p>
+            <p data-i18n="aboutP1">
+              ჩვენი ატელიეში დამუშავებული თითოეული ნივთი გადის მკაცრ კონტროლს,
+              რათა უზრუნველყოფილი იყოს ძაფების მაქსიმალური მდგრადობა რეცხვისა და
+              ხანგრძლივი გამოყენებისას.
+            </p>
+            <p data-i18n="aboutP2">
+              ვმუშაობთ ექსკლუზიურად უმაღლესი ხარისხის ინდუსტრიული ძაფებითა და
+              პრემიუმ მძიმე ბამბის ქსოვილებით.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="py-24 border-t border-white/5">
+        <div class="max-w-5xl mx-auto px-6">
+          <div class="text-center mb-16 reveal">
+            <div
+              class="inline-block px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 mb-4"
+            >
+              <span
+                class="text-xs uppercase tracking-widest text-[#8d98a7]"
+                data-i18n="contactBadge"
+                >პირდაპირი კავშირი</span
+              >
+            </div>
+            <h2 class="text-3xl md:text-5xl font-normal text-[#E6DFD3] mb-4">
+              <span data-i18n="contactHeader1">დაგვიკავშირდით</span>
+              <span class="text-[#d4af37]" data-i18n="contactHeader2"
+                >ატელიეში</span
+              >
+            </h2>
+            <p class="text-sm text-[#8d98a7]" data-i18n="contactSub">
+              მზა პროდუქციისთვის ან პერსონალური დიზაინის შესაკვეთად მოგვწერეთ
+              ნებისმიერ სოციალურ ქსელში ან გვეწვიეთ ადგილზე:
+            </p>
+          </div>
+
+          <!-- Social Media Links Grid -->
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12"
+          >
+            <!-- Instagram -->
+            <a
+              href="https://www.instagram.com/laino.embroidery/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="glass-card p-6 flex flex-col items-center text-center group hover:border-[#d4af37] transition-all reveal"
+            >
+              <div
+                class="w-12 h-12 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+              >
+                <svg class="w-12 h-12" viewBox="0 0 512 512" fill="none">
+                  <radialGradient id="igGrad" cx="20%" cy="100%" r="120%">
+                    <stop offset="0%" stop-color="#fdf497" />
+                    <stop offset="45%" stop-color="#fd5949" />
+                    <stop offset="90%" stop-color="#285AEB" />
+                  </radialGradient>
+                  <circle cx="256" cy="256" r="256" fill="url(#igGrad)" />
+                  <rect
+                    x="128"
+                    y="128"
+                    width="256"
+                    height="256"
+                    rx="68"
+                    stroke="white"
+                    stroke-width="26"
+                    fill="none"
+                  />
+                  <circle
+                    cx="256"
+                    cy="256"
+                    r="64"
+                    stroke="white"
+                    stroke-width="26"
+                    fill="none"
+                  />
+                  <circle cx="328" cy="184" r="14" fill="white" />
+                </svg>
+              </div>
+              <h3 class="text-base font-medium text-[#E6DFD3] mb-1">
+                Instagram
+              </h3>
+              <span class="text-[11px] text-[#d4af37] font-mono mb-3"
+                >@laino.embroidery</span
+              >
+              <span
+                class="btn-gold w-full py-2 rounded text-[10px] uppercase font-semibold mt-auto"
+                data-i18n="btnIg"
+                >მიწერა →</span
+              >
+            </a>
+
+            <!-- Facebook -->
+            <a
+              href="https://www.facebook.com/profile.php?id=61582688068815"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="glass-card p-6 flex flex-col items-center text-center group hover:border-[#d4af37] transition-all reveal"
+            >
+              <div
+                class="w-12 h-12 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+              >
+                <svg class="w-12 h-12" viewBox="0 0 512 512" fill="none">
+                  <circle cx="256" cy="256" r="256" fill="#0866FF" />
+                  <path
+                    d="M294.5 512V313.5H361L371 236H294.5V186.5C294.5 164 300.8 148.8 333 148.8H373.8V80C366.7 79 342.3 76.8 314 76.8C254.7 76.8 214 113 214 179.3V236H147.5V313.5H214V512H294.5Z"
+                    fill="white"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-base font-medium text-[#E6DFD3] mb-1">
+                Facebook
+              </h3>
+              <span class="text-[11px] text-[#d4af37] font-mono mb-3"
+                >Laino • ლაინო</span
+              >
+              <span
+                class="btn-gold w-full py-2 rounded text-[10px] uppercase font-semibold mt-auto"
+                data-i18n="btnFb"
+                >მიწერა →</span
+              >
+            </a>
+
+            <!-- WhatsApp -->
+            <a
+              href="https://wa.me/995558519496"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="glass-card p-6 flex flex-col items-center text-center group hover:border-[#d4af37] transition-all reveal"
+            >
+              <div
+                class="w-12 h-12 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform overflow-hidden rounded-2xl shadow-lg"
+              >
+                <img
+                  src="./images/whatsapp.avif"
+                  alt="WhatsApp"
+                  class="w-full h-full object-cover rounded-2xl"
+                />
+              </div>
+              <h3 class="text-base font-medium text-[#E6DFD3] mb-1">
+                WhatsApp
+              </h3>
+              <span class="text-[11px] text-[#d4af37] font-mono mb-3"
+                >+995 558 51 94 96</span
+              >
+              <span
+                class="btn-gold w-full py-2 rounded text-[10px] uppercase font-semibold mt-auto"
+                data-i18n="btnWa"
+                >ჩათი →</span
+              >
+            </a>
+
+            <!-- TikTok -->
+            <a
+              href="https://www.tiktok.com/@laino266"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="glass-card p-6 flex flex-col items-center text-center group hover:border-[#d4af37] transition-all reveal"
+            >
+              <div
+                class="w-12 h-12 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform overflow-hidden rounded-full shadow-lg"
+              >
+                <svg class="w-12 h-12" viewBox="0 0 512 512">
+                  <circle cx="256" cy="256" r="256" fill="#000000" />
+                  <path
+                    d="M396.5 210.8c-28.5-1.2-54.8-12.2-75.1-30.8V320c0 58.5-47.5 106-106 106S109.4 378.5 109.4 320s47.5-106 106-106c6.2 0 12.3.5 18.2 1.6v53.4c-5.8-2-12-3.1-18.2-3.1-29.3 0-53 23.7-53 53s23.7 53 53 53 53-23.7 53-53V82h53.2c4.1 36.3 31.7 65.2 66.8 69.8v59c-11.3 0-22.6-2.3-33-6.8z"
+                    fill="#25F4EE"
+                  />
+                  <path
+                    d="M380.5 194.8c-28.5-1.2-54.8-12.2-75.1-30.8V304c0 58.5-47.5 106-106 106S93.4 362.5 93.4 304s47.5-106 106-106c6.2 0 12.3.5 18.2 1.6v53.4c-5.8-2-12-3.1-18.2-3.1-29.3 0-53 23.7-53 53s23.7 53 53 53 53-23.7 53-53V66h53.2c4.1 36.3 31.7 65.2 66.8 69.8v59c-11.3 0-22.6-2.3-33-6.8z"
+                    fill="#FE2C55"
+                  />
+                  <path
+                    d="M388.5 202.8c-28.5-1.2-54.8-12.2-75.1-30.8V312c0 58.5-47.5 106-106 106S101.4 370.5 101.4 312s47.5-106 106-106c6.2 0 12.3.5 18.2 1.6v53.4c-5.8-2-12-3.1-18.2-3.1-29.3 0-53 23.7-53 53s23.7 53 53 53 53-23.7 53-53V74h53.2c4.1 36.3 31.7 65.2 66.8 69.8v59c-11.3 0-22.6-2.3-33-6.8z"
+                    fill="#FFFFFF"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-base font-medium text-[#E6DFD3] mb-1">TikTok</h3>
+              <span class="text-[11px] text-[#d4af37] font-mono mb-3"
+                >@laino266</span
+              >
+              <span
+                class="btn-gold w-full py-2 rounded text-[10px] uppercase font-semibold mt-auto"
+                data-i18n="btnTt"
+                >ნახვა →</span
+              >
+            </a>
+          </div>
+
+          <!-- Interactive Google Maps Embed with Exact Pin Coordinates -->
+          <div class="glass-card p-3 md:p-4 rounded-xl overflow-hidden reveal">
+            <div
+              class="w-full h-96 rounded-lg overflow-hidden border border-white/10 relative"
+            >
+              <iframe
+                src="https://maps.google.com/maps?q=41.710708,44.904386&z=15&output=embed"
+                class="w-full h-full border-0 filter invert-[90%] hue-rotate-180 contrast-125 opacity-85 hover:opacity-100 transition-opacity"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              >
+              </iframe>
+            </div>
+            <div
+              class="flex flex-col sm:flex-row justify-between items-center gap-3 mt-4 px-2 text-xs text-[#8d98a7]"
+            >
+              <span
+                >📍
+                <strong class="text-[#E6DFD3]">Laino Studio Location</strong> —
+                Tbilisi / Region Area</span
+              >
+              <a
+                href="https://maps.app.goo.gl/tqsZmUEZWn69Nr2t8"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-[#d4af37] hover:underline uppercase tracking-widest font-semibold flex items-center gap-1"
+              >
+                <span>გახსნა Google Maps-ში ↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Cart Modal -->
+    <div
+      id="cart-modal"
+      class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4"
+    >
+      <div
+        class="glass-card max-w-5xl w-full p-8 md:p-12 relative max-h-[92vh] overflow-y-auto border border-[#d4af37]/30"
+      >
+        <button
+          onclick="closeCartModal()"
+          class="absolute top-6 right-6 text-white text-3xl font-light hover:text-[#d4af37] transition-colors z-10"
+        >
+          &times;
+        </button>
+
+        <h3
+          class="text-3xl font-normal text-[#E6DFD3] mb-6 font-serif"
+          data-i18n="cartTitle"
+        >
+          თქვენი კალათა და უსაფრთხო შეკვეთა
+        </h3>
+
+        <!-- EMPTY CART STATE -->
+        <div
+          id="empty-cart-state"
+          class="hidden flex flex-col items-center justify-center py-12 text-center"
+        >
+          <div class="text-6xl mb-6 opacity-40 grayscale">🛒</div>
+          <h4 class="text-2xl text-[#E6DFD3] mb-2" data-i18n="emptyCartMsg">
+            კალათა ცარიელია
+          </h4>
+          <p class="text-sm text-[#8d98a7] mb-8" data-i18n="emptyCartSub">
+            გთხოვთ დაამატოთ ნივთები შეკვეთის გასაფორმებლად
+          </p>
+          <button
+            onclick="
+              closeCartModal();
+              window.location.href = 'catalog.html';
+            "
+            class="btn-gold px-8 py-3.5 rounded-lg text-xs uppercase tracking-widest font-semibold"
+            data-i18n="btnToCatalog"
+          >
+            კატალოგში გადასვლა
+          </button>
+        </div>
+
+        <!-- FILLED CART STATE (Grid Layout) -->
+        <div
+          id="filled-cart-state"
+          class="grid grid-cols-1 lg:grid-cols-2 gap-10"
+        >
+          <!-- LEFT COLUMN: Items and Totals -->
+          <div>
+            <div
+              id="cart-items-container"
+              class="space-y-4 mb-4 divide-y divide-white/10 max-h-[220px] overflow-y-auto pr-2"
+            ></div>
+
+            <button
+              onclick="
+                closeCartModal();
+                window.location.href = 'catalog.html';
+              "
+              class="btn-outline w-full py-2.5 rounded-lg text-xs uppercase tracking-widest font-semibold mb-4 flex items-center justify-center gap-2"
+            >
+              <span>+</span>
+              <span data-i18n="btnAddMore"
+                >კიდევ ნივთების დამატება / Add More Items</span
+              >
+            </button>
+
+            <!-- Delivery Times Tab inside Checkout -->
+            <div
+              class="mb-4 bg-white/[0.03] border border-white/10 rounded-lg p-3.5 text-[11px] text-[#8d98a7] space-y-1"
+            >
+              <p
+                class="text-[#E6DFD3] font-semibold uppercase tracking-widest mb-1"
+                data-i18n="checkoutTabTitle"
+              >
+                📦 დამზადებისა და მიწოდების ვადები:
+              </p>
+              <p>
+                <span data-i18n="coTime1">საიტზე დადებული დიზაინები</span>:
+                <span class="text-[#d4af37]" data-i18n="coVal1">2-4 დღე</span>
+              </p>
+              <p>
+                <span data-i18n="coTime2">პერსონალური მაისურები</span>:
+                <span class="text-[#d4af37]" data-i18n="coVal2">3-5 დღე</span> |
+                <span data-i18n="coTime3">ჰუდები</span>:
+                <span class="text-[#d4af37]" data-i18n="coVal3">5-7 დღე</span>
+              </p>
+              <p>
+                <span data-i18n="coTime4">მიწოდება</span>:
+                <span data-i18n="coValTbilisi">თბილისი</span>
+                <span class="text-[#E6DFD3]" data-i18n="coValTbilisiTime"
+                  >1 დღეში</span
+                >
+                | <span data-i18n="coValRegions">რეგიონები</span>
+                <span class="text-[#E6DFD3]" data-i18n="coValRegionTime"
+                  >2-4 დღე</span
+                >
+              </p>
+            </div>
+
+            <div
+              id="cart-total-section"
+              class="border-t border-white/10 pt-4 flex flex-col gap-2 text-base text-[#E6DFD3]"
+            >
+              <div class="flex justify-between text-sm text-[#8d98a7]">
+                <span
+                  class="uppercase tracking-widest"
+                  data-i18n="subtotalLabel"
+                  >პროდუქტის ჯამი:</span
+                >
+                <span id="cart-subtotal-price" class="font-mono">₾0.00</span>
+              </div>
+              <div
+                id="delivery-fee-row"
+                class="flex justify-between text-sm text-[#8d98a7]"
+              >
+                <span
+                  class="uppercase tracking-widest"
+                  data-i18n="deliveryLabel"
+                  >მიტანის საფასური:</span
+                >
+                <span id="cart-delivery-price" class="font-mono">₾6.00</span>
+              </div>
+              <div
+                class="flex justify-between text-lg font-semibold mt-2 pt-2 border-t border-white/5"
+              >
+                <span class="uppercase tracking-widest" data-i18n="totalLabel"
+                  >სრული ჯამი:</span
+                >
+                <span id="cart-total-price" class="font-mono text-[#d4af37]"
+                  >₾0.00</span
+                >
+              </div>
+            </div>
+
+            <!-- Instruction Box -->
+            <div
+              class="mt-4 bg-white/[0.02] border border-white/10 rounded-lg p-3.5 text-[11px] text-[#8d98a7] space-y-1"
+            >
+              <p
+                class="text-[#E6DFD3] font-semibold uppercase tracking-widest mb-1"
+                data-i18n="instHeader"
+              >
+                📋 შეკვეთის გაფორმების ინსტრუქცია:
+              </p>
+              <p data-i18n="inst1">1. აირჩიეთ თქვენთვის სასურველი ნივთები</p>
+              <p data-i18n="inst2">
+                2. მიუთითეთ თქვენი სახელი, გვარი, მობილური და მისამართი (თუ
+                იყენებთ მიტანის სერვისს)
+              </p>
+              <p data-i18n="inst3">
+                3. საქართველოს ბანკით გადახდის შემთხვევაში დააჭირეთ "გახსენით
+                მობილურ ბანკში" ღილაკს და გადარიცხეთ
+                <span
+                  id="inst-total-price"
+                  class="text-[#d4af37] font-mono font-bold"
+                  >₾0.00</span
+                ><br />
+                თიბისი ბანკით გადახდის შემთხვევაში დააკოპირეთ ანგარიშის ნომერი
+                და გადარიცხეთ მობაილ ბანკიდან
+                <span
+                  id="inst-total-price-2"
+                  class="text-[#d4af37] font-mono font-bold"
+                  >₾0.00</span
+                >
+              </p>
+              <p data-i18n="inst4">
+                4. დააჭირეთ "შეკვეთის გაგზავნა WhatsApp-ში" და გააგზავნეთ
+                ავტომატურად დაწერილი ტექსტი და გადარიცხვის სქრინი
+              </p>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: User Info and Checkout Form -->
+          <div>
+            <form
+              id="checkout-form"
+              onsubmit="submitCheckout(event)"
+              class="space-y-4 text-xs"
+            >
+              <div>
+                <label
+                  class="block text-[#E6DFD3] mb-1 uppercase tracking-widest"
+                  data-i18n="formName"
+                  >სახელი და გვარი / Full Name</label
+                >
+                <input
+                  type="text"
+                  id="co-name"
+                  required
+                  class="w-full bg-black/40 border border-white/10 rounded-lg p-3.5 text-white focus:border-[#d4af37] outline-none"
+                  data-i18n-placeholder="placeholderName"
+                  placeholder="მაგ: ნიკა ბერიძე"
+                />
+              </div>
+
+              <div>
+                <label
+                  class="block text-[#E6DFD3] mb-1 uppercase tracking-widest"
+                  data-i18n="formPhone"
+                  >ტელეფონის ნომერი / Phone Number</label
+                >
+                <input
+                  type="tel"
+                  id="co-phone"
+                  required
+                  class="w-full bg-black/40 border border-white/10 rounded-lg p-3.5 text-white focus:border-[#d4af37] outline-none"
+                  placeholder="+995 599 XX XX XX"
+                />
+              </div>
+
+              <div>
+                <label
+                  class="block text-[#d4af37] mb-1 uppercase tracking-widest font-semibold"
+                  data-i18n="formZone"
+                  >მიწოდების ზონა / Delivery Zone</label
+                >
+                <select
+                  id="co-delivery-zone"
+                  onchange="updateDeliveryFee()"
+                  class="w-full bg-black/40 border border-[#d4af37]/50 rounded-lg p-3.5 text-white focus:border-[#d4af37] outline-none cursor-pointer"
+                >
+                  <option value="pickup" data-i18n="optPickup">
+                    გატანა (უფასო)
+                  </option>
+                  <optgroup
+                    label="📍 თბილისი"
+                    id="og-tbilisi"
+                    data-i18n-label="ogTbilisi"
+                  >
+                    <option value="6" data-i18n="optGldani">
+                      გლდანის რაიონი
+                    </option>
+                    <option value="6" data-i18n="optDidube">
+                      დიდუბის რაიონი
+                    </option>
+                    <option value="6" data-i18n="optVake">ვაკის რაიონი</option>
+                    <option value="6" data-i18n="optIsani">ისნის რაიონი</option>
+                    <option value="6" data-i18n="optKrtsanisiDist">
+                      კრწანისის რაიონი
+                    </option>
+                    <option value="6" data-i18n="optMtatsminda">
+                      მთაწმინდის რაიონი
+                    </option>
+                    <option value="6" data-i18n="optNadzaladevi">
+                      ნაძალადევის რაიონი
+                    </option>
+                    <option value="6" data-i18n="optSaburtalo">
+                      საბურთალოს რაიონი
+                    </option>
+                    <option value="6" data-i18n="optSamgori">
+                      სამგორის რაიონი
+                    </option>
+                    <option value="6" data-i18n="optChugureti">
+                      ჩუღურეთის რაიონი
+                    </option>
+                  </optgroup>
+                  <optgroup
+                    label="🏡 თბილისის შემოგარენი"
+                    id="og-suburbs"
+                    data-i18n-label="ogSuburbs"
+                  >
+                    <option value="8" data-i18n="optTkhinvala">თხინვალა</option>
+                    <option value="8" data-i18n="optKaklebi">კაკლები</option>
+                    <option value="8" data-i18n="optLiloSettlement">
+                      ლილოს დასახლება
+                    </option>
+                    <option value="8" data-i18n="optDidiPataLilo">
+                      დიდი და პატარა ლილო
+                    </option>
+                    <option value="8" data-i18n="optAirportSettlement">
+                      აეროპორტის დასახლება
+                    </option>
+                    <option value="8" data-i18n="optAfrica">აფრიკა</option>
+                    <option value="8" data-i18n="optNasaguri">ნასაგური</option>
+                    <option value="8" data-i18n="optTsintubani">
+                      წინუბანი
+                    </option>
+                    <option value="8" data-i18n="optPhoniChala">
+                      ზემო და ქვემო ფონიჭალა
+                    </option>
+                    <option value="8" data-i18n="optKrtsanisiSub">
+                      კრწანისი
+                    </option>
+                    <option value="8" data-i18n="optTskneti">წყნეთი</option>
+                    <option value="8" data-i18n="optBetania">ბეთანია</option>
+                    <option value="8" data-i18n="optKiketi">კიკეთი</option>
+                    <option value="8" data-i18n="optOkrokana">ოქროყანა</option>
+                    <option value="8" data-i18n="optTsavkisi">წავკისი</option>
+                    <option value="8" data-i18n="optShindisi">შინდისი</option>
+                    <option value="8" data-i18n="optTabakhmela">
+                      ტაბახმელა
+                    </option>
+                    <option value="8" data-i18n="optKojori">კოჯორი</option>
+                    <option value="8" data-i18n="optKoshigora">ქოშიგორა</option>
+                    <option value="8" data-i18n="optDigomiVillage">
+                      სოფელი დიღომი
+                    </option>
+                  </optgroup>
+                  <optgroup
+                    label="📌 რეგიონები"
+                    id="og-regions"
+                    data-i18n-label="ogRegions"
+                  >
+                    <option value="8" data-i18n="optCity">ქალაქი</option>
+                    <option value="10" data-i18n="optTown">დაბა</option>
+                    <option value="12" data-i18n="optVillage">სოფელი</option>
+                    <option value="15" data-i18n="optHighMountain">
+                      მაღალმთიანი
+                    </option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div id="address-field-wrapper">
+                <label
+                  class="block text-[#E6DFD3] mb-1 uppercase tracking-widest"
+                  data-i18n="formAddress"
+                  >ზუსტი მისამართი / Exact Address</label
+                >
+                <input
+                  type="text"
+                  id="co-address"
+                  class="w-full bg-black/40 border border-white/10 rounded-lg p-3.5 text-white focus:border-[#d4af37] outline-none"
+                  data-i18n-placeholder="placeholderAddress"
+                  placeholder="ქუჩის სახელი, სახლის #..."
+                />
+              </div>
+
+              <div class="pt-2 border-t border-white/10 space-y-3">
+                <label
+                  class="block text-[#E6DFD3] font-semibold uppercase tracking-widest"
+                  data-i18n="formPaymentHeader"
+                  >გადახდის ბანკი / Payment Bank</label
+                >
+
+                <div class="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onclick="selectBank('TBC')"
+                    id="bank-btn-tbc"
+                    class="bank-pill py-3 px-4 rounded-lg border border-[#d4af37] bg-[#d4af37]/10 text-white font-medium text-center transition-all flex flex-col items-center gap-1"
+                  >
+                    <span class="font-semibold">TBC Bank</span>
+                    <span
+                      class="text-[10px] text-[#8d98a7]"
+                      data-i18n="bankSelect"
+                      >აირჩიე</span
+                    >
+                  </button>
+                  <button
+                    type="button"
+                    onclick="selectBank('BOG')"
+                    id="bank-btn-bog"
+                    class="bank-pill py-3 px-4 rounded-lg border border-white/20 bg-black/40 text-[#8d98a7] font-medium text-center transition-all flex flex-col items-center gap-1"
+                  >
+                    <span class="font-semibold">Bank of Georgia</span>
+                    <span
+                      class="text-[10px] text-[#8d98a7]"
+                      data-i18n="bankSelect"
+                      >აირჩიე</span
+                    >
+                  </button>
+                </div>
+
+                <!-- Dynamic Bank Section -->
+                <div
+                  id="bank-dynamic-box"
+                  class="bg-black/40 border border-white/20 rounded-lg p-4 text-xs space-y-3"
+                >
+                  <p
+                    id="bank-name-display"
+                    class="text-[#E6DFD3] font-semibold uppercase tracking-widest"
+                  >
+                    TBC Bank Details
+                  </p>
+
+                  <div id="tbc-iban-wrapper" class="space-y-2">
+                    <div
+                      class="text-[11px] text-[#d4af37] font-semibold flex items-center justify-between"
+                    >
+                      <span id="tbc-receiver-label">მიმღები: ლ.ჯ.</span>
+                    </div>
+                    <div
+                      class="flex items-center justify-between bg-black/60 p-2.5 rounded border border-white/10"
+                    >
+                      <span
+                        id="bank-iban-text"
+                        class="font-mono text-[#d4af37] text-xs"
+                        >GE02TB7192545064300079</span
+                      >
+                      <button
+                        type="button"
+                        onclick="copyIban()"
+                        class="bg-[#d4af37] text-black px-3 py-1 rounded text-[10px] font-semibold uppercase hover:bg-white transition-colors"
+                        data-i18n="copyBtn"
+                      >
+                        კოპირება
+                      </button>
+                    </div>
+                  </div>
+
+                  <div id="bog-link-wrapper" class="hidden space-y-2 pt-1">
+                    <a
+                      href="https://egreve.bog.ge/Laino"
+                      target="_blank"
+                      class="w-full bg-white/5 hover:bg-white/15 text-center py-3 rounded border border-white/15 text-xs uppercase tracking-wider text-[#E6DFD3] font-semibold transition-colors flex items-center justify-center gap-1.5"
+                    >
+                      📲
+                      <span data-i18n="bogLinkText"
+                        >გახსენი მობილურ ბანკში</span
+                      >
+                      (<span class="text-[#d4af37]">egreve.bog.ge/Laino</span>)
+                    </a>
+                    <p
+                      id="bog-commission-note"
+                      class="text-[11px] text-amber-300/90 italic text-center"
+                      data-i18n="bogCommissionText"
+                    >
+                      ⚠️ შენიშვნა: BOG ბმულით გადახდისას ემატება 1 ლარიანი
+                      საკომისიო.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="btn-gold w-full py-4 rounded-lg text-xs uppercase tracking-widest font-semibold mt-4"
+                data-i18n="formSubmit"
+              >
+                შეკვეთის გაგზავნა WhatsApp-ში
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- SUCCESS MESSAGE STATE -->
+        <div id="checkout-success" class="hidden text-center py-12 space-y-4">
+          <div class="text-[#d4af37] text-5xl">✓</div>
+          <h4 class="text-2xl text-[#E6DFD3]" data-i18n="successTitle">
+            შეკვეთა მიღებულია!
+          </h4>
+          <p class="text-xs text-[#8d98a7]" data-i18n="successDesc">
+            თქვენი შეკვეთის მონაცემები მზადაა WhatsApp-ში გასაგზავნად.
+          </p>
+          <button
+            onclick="closeCartModal()"
+            class="btn-gold px-8 py-3 rounded-lg text-xs uppercase tracking-widest mt-4"
+            data-i18n="closeBtn"
+          >
+            დახურვა
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="border-t border-white/10 py-8 bg-[#050507]">
+      <div
+        class="max-w-7xl mx-auto px-6 text-center text-xs text-[#8d98a7] uppercase tracking-widest"
+      >
+        <p>&copy; 2026 LAINO EMBROIDERY STUDIO. ყველა უფლება დაცულია.</p>
+      </div>
+    </footer>
+
+    <script>
+      const catalogItems = [
+        {
+          id: 1,
+          titleEn: "Embroidered Hoodie #01",
+          titleKa: "ნაქარგი ჰუდი #01",
+          catEn: "Hoodies",
+          catKa: "ჰუდები",
+          price: 150,
+          image: "./images/hoodie1.jpg",
+        },
+        {
+          id: 2,
+          titleEn: "Embroidered Hoodie #02",
+          titleKa: "ნაქარგი ჰუდი #02",
+          catEn: "Hoodies",
+          catKa: "ჰუდები",
+          price: 150,
+          image: "./images/hoodie2.jpg",
+        },
+        {
+          id: 3,
+          titleEn: "Heavy Cotton T-Shirt #01",
+          titleKa: "მძიმე ბამბის მაისური #01",
+          catEn: "T-Shirts",
+          catKa: "მაისურები",
+          price: 75,
+          image: "./images/shirt1.jpg",
+        },
+        {
+          id: 4,
+          titleEn: "Heavy Cotton T-Shirt #02",
+          titleKa: "მძიმე ბამბის მაისური #02",
+          catEn: "T-Shirts",
+          catKa: "მაისურები",
+          price: 75,
+          image: "./images/shirt2.jpg",
+        },
+        {
+          id: 5,
+          titleEn: "Denim Jacket Embroidery",
+          titleKa: "ჯინსის ქურთუკის ქარგვა",
+          catEn: "Denim",
+          catKa: "ჯინსი",
+          price: 220,
+          image: "./images/denim1.jpg",
+        },
+        {
+          id: 6,
+          titleEn: "Embroidered Patch Set",
+          titleKa: "ნაქარგი პატჩების ნაკრები",
+          catEn: "Patches",
+          catKa: "პატჩები",
+          price: 35,
+          image: "./images/patch1.jpg",
+        },
+      ];
+
+      let selectedBank = "TBC";
+      let cart = JSON.parse(localStorage.getItem("laino_cart")) || [];
+      let currentDeliveryFee = 6;
+      let currentLang = localStorage.getItem("laino_lang") || "ka";
+
+      function renderMarquee() {
+        const container = document.getElementById("marquee-container");
+        const containerClone = document.getElementById(
+          "marquee-container-clone",
+        );
+        let htmlContent = "";
+
+        catalogItems.forEach((item) => {
+          const title = currentLang === "ka" ? item.titleKa : item.titleEn;
+          htmlContent += `
+          <div class="glass-card w-72 flex-shrink-0 overflow-hidden group cursor-pointer" onclick="window.location.href='catalog.html'">
+            <div class="h-64 bg-[#111115] relative overflow-hidden flex items-center justify-center">
+              <img src="${item.image}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity flex items-end justify-between p-4">
+                <div>
+                  <span class="text-xs uppercase tracking-widest text-[#d4af37] block font-semibold">${title}</span>
+                  <span class="text-xs text-white/90 font-mono">₾${item.price}.00</span>
+                </div>
+                <span class="btn-gold px-3 py-1 rounded text-[10px] uppercase font-semibold">${currentLang === "ka" ? "ნახვა" : "View"}</span>
+              </div>
+            </div>
+          </div>
+        `;
+        });
+        container.innerHTML = htmlContent;
+        containerClone.innerHTML = htmlContent;
+      }
+
+      const i18n = {
+        ka: {
+          announcement1: "LAINO EMBROIDERY STUDIO • თბილისი, საქართველო",
+          announcement2: "პერსონალური დიზაინები • მოგვწერეთ სოციალურ ქსელებში",
+          announcement3: "ადგილობრივი მიწოდება მთელ საქართველოში",
+          navHome: "მთავარი",
+          navArchive: "კატალოგი",
+          navDelivery: "ვადები და პერსონალიზაცია",
+          navServices: "სერვისები",
+          navAtelier: "ატელიე",
+          navContact: "კონტაქტი",
+          heroBadge: "LAINO EMBROIDERY STUDIO • თბილისი",
+          heroTitle1: "მზა კოლექცია და",
+          heroTitle2: "პერსონალური დიზაინები",
+          heroSubtitle:
+            "აირჩიეთ სასურველი ნივთი ან მოგვწერეთ თქვენი ინდივიდუალური იდეის მოსაწყობად პირდაპირ სოციალურ ქსელებში.",
+          heroBtnCatalog: "კატალოგის ნახვა",
+          heroBtnCustom: "პერსონალური შეკვეთა",
+          showcaseHeader: "რჩეული",
+          showcaseHeaderSub: "კოლექცია",
+          showcaseSub:
+            "გააჩერეთ მაუსით • დააკლიკეთ ნივთს კატალოგში გადასასვლელად",
+          deliveryBadge: "ინფორმაცია და ვადები",
+          deliveryHeader: "დამზადება, მიწოდება და პერსონალიზაცია",
+          deliverySub:
+            "გაეცანით ჩვენს ვადებს და დაგვიკავშირდით ინდივიდუალური დიზაინისთვის",
+          prodTitle: "დამზადების ვადები",
+          prodItem1: "პერსონალური დიზაინით მაისურები",
+          prodItem2: "პერსონალური დიზაინით ჰუდები",
+          prodItem3: "საიტზე დადებული დიზაინები",
+          pTime1: "3-5 დღე",
+          pTime2: "5-7 დღე",
+          pTime3: "2-4 დღე",
+          shipTitle: "მიწოდების ვადები",
+          shipItem1: "მიწოდება თბილისში",
+          shipItem2: "მიწოდება რეგიონებში",
+          shipNote: "* მიწოდება ხორციელდება სამუშაო დღეებში",
+          sTime1: "დამზადებიდან 1 დღეში",
+          sTime2: "დამზადებიდან 2-4 დღეში",
+          fastService: "სწრაფი სერვისი",
+          customBannerTitle: "გსურთ პერსონალური / ინდივიდუალური დიზაინი?",
+          customBannerText:
+            "მოგვწერეთ პირდაპირ ჩვენს სოციალურ ქსელებში ან WhatsApp-ში, გამოგვიგზავნეთ სასურველი სურათი, ლოგო ან იდეა და ჩვენ მას ვქარგავთ უმაღლესი ხარისხით!",
+          btnIgText: "Instagram-ში მიწერა",
+          btnFbText: "Facebook-ში მიწერა",
+          servBadge: "რას ვქმნით",
+          servHeader: "ხელოვნება და სერვისები",
+          serv1Title: "კატალოგის ნივთები",
+          serv1Desc:
+            "მზა, მაღალი სიმკვრივის ნაქარგი ჰუდები, მაისურები და ტანსაცმელი ჩვენი კოლექციიდან.",
+          serv2Title: "კორპორატიული ბრენდინგი",
+          serv2Desc:
+            "ერთიანი გუნდური უნიფორმები, მაღალი სიზუსტის ლოგოები კომპანიებისა და ბუტიკებისთვის.",
+          serv3Title: "ექსკლუზიური პატჩები",
+          serv3Desc:
+            "ნაქარგი პატჩები გამაგრებული კიდეებითა და უსაფრთხო დასამაგრებელი ვარიანტებით.",
+          atelierBadge: "ჩვენი ხელობა",
+          atelierHeader: "ხარისხი თითოეულ ნაკერში",
+          aboutLead:
+            "Laino არის დამოუკიდებელი ნაქარგობის სტუდია თბილისში, რომელიც ორიენტირებულია პრემიუმ ხარისხის ტექსტილსა და დეტალიზებულ დიზაინზე.",
+          aboutP1:
+            "ჩვენი ატელიეში დამუშავებული თითოეული ნივთი გადის მკაცრ კონტროლს, რათა უზრუნველყოფილი იყოს ძაფების მაქსიმალური მდგრადობა რეცხვისა და ხანგრძლივი გამოყენებისას.",
+          aboutP2:
+            "ვმუშაობთ ექსკლუზიურად უმაღლესი ხარისხის ინდუსტრიული ძაფებითა და პრემიუმ მძიმე ბამბის ქსოვილებით.",
+          contactBadge: "პირდაპირი კავშირი",
+          contactHeader1: "დაგვიკავშირდით",
+          contactHeader2: "ატელიეში",
+          contactSub:
+            "მზა პროდუქციისთვის ან პერსონალური დიზაინის შესაკვეთად მოგვწერეთ ნებისმიერ სოციალურ ქსელში:",
+          btnIg: "მიწერა →",
+          btnFb: "მიწერა →",
+          btnWa: "ჩათი →",
+          btnTt: "ნახვა →",
+          cartTitle: "თქვენი კალათა და უსაფრთხო შეკვეთა",
+          emptyCartMsg: "კალათა ცარიელია",
+          emptyCartSub: "გთხოვთ დაამატოთ ნივთები შეკვეთის გასაფორმებლად",
+          btnToCatalog: "კატალოგში გადასვლა",
+          totalLabel: "სრული ჯამი:",
+          subtotalLabel: "პროდუქტის ჯამი:",
+          deliveryLabel: "მიტანის საფასური:",
+          formName: "სახელი და გვარი / Full Name",
+          formPhone: "ტელეფონის ნომერი / Phone Number",
+          formZone: "მიწოდების ზონა / Delivery Zone",
+          formAddress: "ზუსტი მისამართი / Exact Address",
+          formPaymentHeader: "გადახდის ბანკი / Payment Bank",
+          formSubmit: "შეკვეთის გაგზავნა WhatsApp-ში",
+          successTitle: "შეკვეთა მიღებულია!",
+          successDesc:
+            "თქვენი შეკვეთის მონაცემები მზადაა WhatsApp-ში გასაგზავნად.",
+          btnAddMore: "კიდევ ნივთების დამატება",
+          instHeader: "📋 შეკვეთის გაფორმების ინსტრუქცია:",
+          inst1: "1. აირჩიეთ თქვენთვის სასურველი ნივთები",
+          inst2:
+            "2. მიუთითეთ თქვენი სახელი, გვარი, მობილური და მისამართი (თუ იყენებთ მიტანის სერვისს)",
+          inst3:
+            '3. საქართველოს ბანკით გადახდის შემთხვევაში დააჭირეთ "გახსენით მობილურ ბანკში" ღილაკს და გადარიცხეთ <span id="inst-total-price" class="text-[#d4af37] font-mono font-bold">₾0.00</span><br>თიბისი ბანკით გადახდის შემთხვევაში დააკოპირეთ ანგარიშის ნომერი და გადარიცხეთ მობაილ ბანკიდან <span id="inst-total-price-2" class="text-[#d4af37] font-mono font-bold">₾0.00</span>',
+          inst4:
+            '4. დააჭირეთ "შეკვეთის გაგზავნა WhatsApp-ში" და გააგზავნეთ ავტომატურად დაწერილი ტექსტი და გადარიცხვის სქრინი',
+          checkoutTabTitle: "📦 დამზადებისა და მიწოდების ვადები:",
+          coTime1: "საიტზე დადებული დიზაინები",
+          coVal1: "2-4 დღე",
+          coTime2: "პერსონალური მაისურები",
+          coVal2: "3-5 დღე",
+          coTime3: "ჰუდები",
+          coVal3: "5-7 დღე",
+          coTime4: "მიწოდება",
+          coValTbilisi: "თბილისი",
+          coValTbilisiTime: "1 დღეში",
+          coValRegions: "რეგიონები",
+          coValRegionTime: "2-4 დღე",
+          copyBtn: "კოპირება",
+          bogLinkText: "გახსენი მობილურ ბანკში",
+          bogCommissionText:
+            "⚠️ შენიშვნა: BOG ბმულით გადახდისას ემატება 1 ლარიანი საკომისიო.",
+          closeBtn: "დახურვა",
+          bankSelect: "აირჩიე",
+          placeholderName: "მაგ: ნიკა ბერიძე",
+          placeholderAddress: "ქუჩის სახელი, სახლის #...",
+          optPickup: "გატანა (უფასო)",
+          ogTbilisi: "📍 თბილისი",
+          ogSuburbs: "🏡 თბილისის შემოგარენი",
+          ogRegions: "📌 რეგიონები",
+          optGldani: "გლდანის რაიონი",
+          optDidube: "დიდუბის რაიონი",
+          optVake: "ვაკის რაიონი",
+          optIsani: "ისნის რაიონი",
+          optKrtsanisiDist: "კრწანისის რაიონი",
+          optMtatsminda: "მთაწმინდის რაიონი",
+          optNadzaladevi: "ნაძალადევის რაიონი",
+          optSaburtalo: "საბურთალოს რაიონი",
+          optSamgori: "სამგორის რაიონი",
+          optChugureti: "ჩუღურეთის რაიონი",
+          optTkhinvala: "თხინვალა",
+          optKaklebi: "კაკლები",
+          optLiloSettlement: "ლილოს დასახლება",
+          optDidiPataLilo: "დიდი და პატარა ლილო",
+          optAirportSettlement: "აეროპორტის დასახლება",
+          optAfrica: "აფრიკა",
+          optNasaguri: "ნასაგური",
+          optTsintubani: "წინუბანი",
+          optPhoniChala: "ზემო და ქვემო ფონიჭალა",
+          optKrtsanisiSub: "კრწანისი",
+          optTskneti: "წყნეთი",
+          optBetania: "ბეთანია",
+          optKiketi: "კიკეთი",
+          optOkrokana: "ოქროყანა",
+          optTsavkisi: "წავკისი",
+          optShindisi: "შინდისი",
+          optTabakhmela: "ტაბახმელა",
+          optKojori: "კოჯორი",
+          optKoshigora: "ქოშიგორა",
+          optDigomiVillage: "სოფელი დიღომი",
+          optCity: "ქალაქი",
+          optTown: "დაბა",
+          optVillage: "სოფელი",
+          optHighMountain: "მაღალმთიანი",
+        },
+        en: {
+          announcement1: "LAINO EMBROIDERY STUDIO • TBILISI, GEORGIA",
+          announcement2: "CUSTOM DESIGNS • MESSAGE US ON SOCIAL MEDIA",
+          announcement3: "DELIVERY ACROSS GEORGIA",
+          navHome: "Home",
+          navArchive: "Catalog",
+          navDelivery: "Delivery & Custom",
+          navServices: "Services",
+          navAtelier: "Atelier",
+          navContact: "Contact",
+          heroBadge: "LAINO EMBROIDERY STUDIO • TBILISI",
+          heroTitle1: "Finished Catalog &",
+          heroTitle2: "Custom Designs",
+          heroSubtitle:
+            "Select items or message us directly on social media to bring your custom embroidery idea to life.",
+          heroBtnCatalog: "Explore Catalog",
+          heroBtnCustom: "Custom Order",
+          showcaseHeader: "Featured",
+          showcaseHeaderSub: "Collection",
+          showcaseSub:
+            "Hover to pause • Click any item to explore full catalog",
+          deliveryBadge: "INFORMATION & TIMEFRAMES",
+          deliveryHeader: "Production, Delivery & Personalization",
+          deliverySub:
+            "Learn about our timeframes and contact us for custom designs",
+          prodTitle: "Production Times",
+          prodItem1: "Custom Design T-Shirts",
+          prodItem2: "Custom Design Hoodies",
+          prodItem3: "Ready Catalog Designs",
+          pTime1: "3-5 Days",
+          pTime2: "5-7 Days",
+          pTime3: "2-4 Days",
+          shipTitle: "Delivery Times",
+          shipItem1: "Delivery within Tbilisi",
+          shipItem2: "Delivery to Regions",
+          shipNote: "* Deliveries are made on business days",
+          sTime1: "1 Day from production",
+          sTime2: "2-4 Days from production",
+          fastService: "Express Service",
+          customBannerTitle: "Looking for a Custom / Personalized Design?",
+          customBannerText:
+            "Message us directly on social media or WhatsApp, send us your desired image, logo or idea, and we will embroider it with top quality!",
+          btnIgText: "Message on Instagram",
+          btnFbText: "Message on Facebook",
+          servBadge: "WHAT WE CRAFT",
+          servHeader: "Craftsmanship & Services",
+          serv1Title: "Catalog Garments",
+          serv1Desc:
+            "Ready-made high-density embroidered hoodies, tees, and outerwear from our established collection.",
+          serv2Title: "Corporate & Brand Identity",
+          serv2Desc:
+            "Unified team uniforms, high-precision logo embroidery, and branded apparel for companies.",
+          serv3Title: "Velcro & Sew-on Patches",
+          serv3Desc:
+            "Embroidered patches from our catalog with reinforced borders and secure backing options.",
+          atelierBadge: "OUR CRAFT",
+          atelierHeader: "Quality in Every Stitch",
+          aboutLead:
+            "Laino is an independent embroidery studio based in Tbilisi, dedicated to high-density vector digitizing and premium textile craft.",
+          aboutP1:
+            "Every garment processed in our atelier undergoes meticulous stitch path optimization to ensure vibrant density, razor-sharp detail, and lasting durability through repeated wash cycles.",
+          aboutP2:
+            "We work exclusively with high-grade industrial threads and premium heavy cotton blanks to achieve an elevated aesthetic.",
+          contactBadge: "DIRECT INQUIRIES",
+          contactHeader1: "Contact Our",
+          contactHeader2: "Atelier",
+          contactSub:
+            "For ready pieces or custom designs, reach out to us on any social media:",
+          btnIg: "Message →",
+          btnFb: "Message →",
+          btnWa: "Chat →",
+          btnTt: "View →",
+          cartTitle: "Your Shopping Cart & Secure Checkout",
+          emptyCartMsg: "Your cart is empty",
+          emptyCartSub: "Please add items to proceed with checkout",
+          btnToCatalog: "Go to Catalog",
+          totalLabel: "Grand Total:",
+          subtotalLabel: "Subtotal:",
+          deliveryLabel: "Delivery Fee:",
+          formName: "Full Name",
+          formPhone: "Phone Number",
+          formZone: "Delivery Zone",
+          formAddress: "Exact Address",
+          formPaymentHeader: "Payment Bank",
+          formSubmit: "Complete Order via WhatsApp",
+          successTitle: "Order Initialized!",
+          successDesc:
+            "Your order details are ready to be sent to our WhatsApp.",
+          btnAddMore: "Add More Items",
+          instHeader: "📋 Order Completion Instructions:",
+          inst1: "1. Select your desired items",
+          inst2:
+            "2. Provide your name, last name, mobile number, and address (if using delivery service)",
+          inst3:
+            '3. For Bank of Georgia payment, click "Open in Mobile Bank" button and transfer <span id="inst-total-price" class="text-[#d4af37] font-mono font-bold">₾0.00</span><br>For TBC Bank payment, copy the account number and transfer from your mobile bank <span id="inst-total-price-2" class="text-[#d4af37] font-mono font-bold">₾0.00</span>',
+          inst4:
+            '4. Click "Complete Order via WhatsApp" and send the automatically generated text and payment screenshot.',
+          checkoutTabTitle: "📦 Production & Delivery Times:",
+          coTime1: "Catalog Designs",
+          coVal1: "2-4 Days",
+          coTime2: "Custom T-Shirts",
+          coVal2: "3-5 Days",
+          coTime3: "Hoodies",
+          coVal3: "5-7 Days",
+          coTime4: "Delivery",
+          coValTbilisi: "Tbilisi",
+          coValTbilisiTime: "1 Day",
+          coValRegions: "Regions",
+          coValRegionTime: "2-4 Days",
+          copyBtn: "Copy",
+          bogLinkText: "Open in Mobile Bank",
+          bogCommissionText:
+            "⚠️ Note: BOG payment link carries a 1 GEL commission.",
+          closeBtn: "Close",
+          bankSelect: "Select",
+          placeholderName: "e.g. Nika Beridze",
+          placeholderAddress: "Street name, house #...",
+          optPickup: "Store Pickup (Free)",
+          ogTbilisi: "📍 Tbilisi",
+          ogSuburbs: "🏡 Tbilisi Suburbs",
+          ogRegions: "📌 Regions",
+          optGldani: "Gldani District",
+          optDidube: "Didube District",
+          optVake: "Vake District",
+          optIsani: "Isani District",
+          optKrtsanisiDist: "Krtsanisi District",
+          optMtatsminda: "Mtatsminda District",
+          optNadzaladevi: "Nadzaladevi District",
+          optSaburtalo: "Saburtalo District",
+          optSamgori: "Samgori District",
+          optChugureti: "Chugureti District",
+          optTkhinvala: "Tkhinvala",
+          optKaklebi: "Kaklebi",
+          optLiloSettlement: "Lilo Settlement",
+          optDidiPataLilo: "Didi and Pata Lilo",
+          optAirportSettlement: "Airport Settlement",
+          optAfrica: "Africa",
+          optNasaguri: "Nasaguri",
+          optTsintubani: "Tsintubani",
+          optPhoniChala: "Upper and Lower PhoniChala",
+          optKrtsanisiSub: "Krtsanisi",
+          optTskneti: "Tskneti",
+          optBetania: "Betania",
+          optKiketi: "Kiketi",
+          optOkrokana: "Okrokana",
+          optTsavkisi: "Tsavkisi",
+          optShindisi: "Shindisi",
+          optTabakhmela: "Tabakhmela",
+          optKojori: "Kojori",
+          optKoshigora: "Koshigora",
+          optDigomiVillage: "Digomi Village",
+          optCity: "City",
+          optTown: "Town",
+          optVillage: "Village",
+          optHighMountain: "High Mountain",
+        },
+      };
+
+      function updateTbcReceiver() {
+        const receiverSpan = document.getElementById("tbc-receiver-label");
+        if (receiverSpan) {
+          receiverSpan.textContent =
+            currentLang === "ka" ? "მიმღები: ლ.ჯ." : "Receiver: L.J.";
+        }
+      }
+
+      function toggleLanguage() {
+        currentLang = currentLang === "ka" ? "en" : "ka";
+        localStorage.setItem("laino_lang", currentLang);
+        applyLanguage();
+      }
+
+      function applyLanguage() {
+        document.body.className = currentLang === "ka" ? "lang-ka" : "lang-en";
+        document.getElementById("lang-flag").textContent =
+          currentLang === "ka" ? "🇬🇧" : "🇬🇪";
+        document.getElementById("lang-text").textContent =
+          currentLang === "ka" ? "EN" : "KA";
+
+        document.querySelectorAll("[data-i18n]").forEach((elem) => {
+          const key = elem.getAttribute("data-i18n");
+          if (i18n[currentLang] && i18n[currentLang][key])
+            elem.innerHTML = i18n[currentLang][key];
+        });
+        document.querySelectorAll("[data-i18n-label]").forEach((elem) => {
+          const key = elem.getAttribute("data-i18n-label");
+          if (i18n[currentLang] && i18n[currentLang][key])
+            elem.label = i18n[currentLang][key];
+        });
+        document.querySelectorAll("[data-i18n-placeholder]").forEach((elem) => {
+          const key = elem.getAttribute("data-i18n-placeholder");
+          if (i18n[currentLang] && i18n[currentLang][key])
+            elem.placeholder = i18n[currentLang][key];
+        });
+        updateTbcReceiver();
+        renderMarquee();
+        renderCart();
+      }
+
+      function toggleMobileMenu() {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+      }
+
+      function selectBank(bank) {
+        selectedBank = bank;
+        const tbcBtn = document.getElementById("bank-btn-tbc");
+        const bogBtn = document.getElementById("bank-btn-bog");
+        const bankNameDisplay = document.getElementById("bank-name-display");
+        const tbcWrapper = document.getElementById("tbc-iban-wrapper");
+        const bogWrapper = document.getElementById("bog-link-wrapper");
+
+        if (bank === "TBC") {
+          tbcBtn.className =
+            "bank-pill py-3 px-4 rounded-lg border border-[#d4af37] bg-[#d4af37]/10 text-white font-medium text-center transition-all flex flex-col items-center gap-1";
+          bogBtn.className =
+            "bank-pill py-3 px-4 rounded-lg border border-white/20 bg-black/40 text-[#8d98a7] font-medium text-center transition-all flex flex-col items-center gap-1";
+          bankNameDisplay.textContent = "TBC Bank Details";
+          tbcWrapper.classList.remove("hidden");
+          bogWrapper.classList.add("hidden");
+        } else {
+          bogBtn.className =
+            "bank-pill py-3 px-4 rounded-lg border border-[#d4af37] bg-[#d4af37]/10 text-white font-medium text-center transition-all flex flex-col items-center gap-1";
+          tbcBtn.className =
+            "bank-pill py-3 px-4 rounded-lg border border-white/20 bg-black/40 text-[#8d98a7] font-medium text-center transition-all flex flex-col items-center gap-1";
+          bankNameDisplay.textContent = "Bank of Georgia Details";
+          tbcWrapper.classList.add("hidden");
+          bogWrapper.classList.remove("hidden");
+        }
+      }
+
+      function copyIban() {
+        const ibanText = document.getElementById("bank-iban-text").textContent;
+        navigator.clipboard.writeText(ibanText).then(() => {
+          alert(
+            currentLang === "ka"
+              ? "IBAN დაკოპირდა ბუფერში!"
+              : "IBAN copied to clipboard!",
+          );
+        });
+      }
+
+      function updateDeliveryFee() {
+        const zoneSelect = document.getElementById("co-delivery-zone");
+        const addressWrapper = document.getElementById("address-field-wrapper");
+        const addressInput = document.getElementById("co-address");
+        const deliveryFeeRow = document.getElementById("delivery-fee-row");
+
+        if (zoneSelect.value === "pickup") {
+          currentDeliveryFee = 0;
+          if (addressWrapper) addressWrapper.classList.add("hidden");
+          if (addressInput) {
+            addressInput.removeAttribute("required");
+            addressInput.value = "";
+          }
+          if (deliveryFeeRow) deliveryFeeRow.classList.add("hidden");
+        } else {
+          currentDeliveryFee = parseInt(zoneSelect.value) || 0;
+          if (addressWrapper) addressWrapper.classList.remove("hidden");
+          if (addressInput) addressInput.setAttribute("required", "true");
+          if (deliveryFeeRow) deliveryFeeRow.classList.remove("hidden");
+        }
+        renderCart();
+      }
+
+      function changeQty(index, delta) {
+        cart[index].qty += delta;
+        if (cart[index].qty <= 0) cart.splice(index, 1);
+        localStorage.setItem("laino_cart", JSON.stringify(cart));
+        updateCartCount();
+        renderCart();
+      }
+
+      function removeFromCart(index) {
+        cart.splice(index, 1);
+        localStorage.setItem("laino_cart", JSON.stringify(cart));
+        updateCartCount();
+        renderCart();
+      }
+
+      function updateCartCount() {
+        document.getElementById("cart-count").textContent = cart.reduce(
+          (sum, item) => sum + item.qty,
+          0,
+        );
+      }
+
+      function openCartModal() {
+        renderCart();
+        updateTbcReceiver();
+        updateDeliveryFee();
+        document.getElementById("cart-modal").classList.remove("hidden");
+        document.getElementById("checkout-success").classList.add("hidden");
+      }
+
+      function closeCartModal() {
+        document.getElementById("cart-modal").classList.add("hidden");
+      }
+
+      function renderCart() {
+        const container = document.getElementById("cart-items-container");
+        const emptyState = document.getElementById("empty-cart-state");
+        const filledState = document.getElementById("filled-cart-state");
+
+        container.innerHTML = "";
+        let subtotal = 0;
+
+        // NEW LOGIC: Completely swap out the layouts based on cart state
+        if (cart.length === 0) {
+          emptyState.classList.remove("hidden");
+          filledState.classList.add("hidden");
+          return;
+        }
+
+        emptyState.classList.add("hidden");
+        filledState.classList.remove("hidden");
+
+        cart.forEach((cartItem, idx) => {
+          subtotal += cartItem.price * cartItem.qty;
+          const title =
+            currentLang === "ka" ? cartItem.titleKa : cartItem.titleEn;
+          container.innerHTML += `
+          <div class="flex items-center justify-between py-4 text-xs">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 bg-[#111115] rounded border border-white/10 overflow-hidden flex-shrink-0">
+                <img src="${cartItem.image}" class="w-full h-full object-cover" />
+              </div>
+              <div>
+                <p class="text-[#E6DFD3] font-medium text-sm">${title}</p>
+                <p class="text-[#8d98a7]">Size: ${cartItem.size} | ₾${cartItem.price}.00</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="flex items-center border border-white/20 rounded bg-black/40">
+                <button type="button" onclick="changeQty(${idx}, -1)" class="px-2.5 py-1 text-white hover:text-[#d4af37]">-</button>
+                <span class="px-3 py-1 font-mono text-white">${cartItem.qty}</span>
+                <button type="button" onclick="changeQty(${idx}, 1)" class="px-2.5 py-1 text-white hover:text-[#d4af37]">+</button>
+              </div>
+              <span class="font-mono text-[#d4af37] w-16 text-right">₾${cartItem.price * cartItem.qty}.00</span>
+              <button type="button" onclick="removeFromCart(${idx})" class="text-red-400 hover:text-red-300 font-bold px-2 py-1">&times;</button>
+            </div>
+          </div>
+        `;
+        });
+
+        const grandTotal = subtotal + currentDeliveryFee;
+        document.getElementById("cart-subtotal-price").textContent =
+          `₾${subtotal}.00`;
+        document.getElementById("cart-delivery-price").textContent =
+          `₾${currentDeliveryFee}.00`;
+        document.getElementById("cart-total-price").textContent =
+          `₾${grandTotal}.00`;
+        document.getElementById("inst-total-price").textContent =
+          `₾${grandTotal}.00`;
+        const instTotalPrice2 = document.getElementById("inst-total-price-2");
+        if (instTotalPrice2) instTotalPrice2.textContent = `₾${grandTotal}.00`;
+      }
+
+      async function submitCheckout(event) {
+        event.preventDefault();
+
+        // Extra fallback protection
+        if (cart.length === 0) {
+          alert(
+            currentLang === "ka"
+              ? "თქვენი კალათა ცარიელია!"
+              : "Your cart is empty!",
+          );
+          return;
+        }
+
+        const zoneSelect = document.getElementById("co-delivery-zone");
+        const zoneName = zoneSelect.options[zoneSelect.selectedIndex].text;
+        const subtotal = cart.reduce(
+          (sum, item) => sum + item.price * item.qty,
+          0,
+        );
+        const grandTotal = subtotal + currentDeliveryFee;
+
+        const orderData = {
+          name: document.getElementById("co-name").value,
+          phone: document.getElementById("co-phone").value,
+          address:
+            zoneSelect.value === "pickup"
+              ? currentLang === "ka"
+                ? "მაღაზიიდან გატანა"
+                : "Store Pickup"
+              : document.getElementById("co-address").value,
+        };
+
+        const receiverText =
+          currentLang === "ka" ? "მიმღები: ლ.ჯ." : "Receiver: L.J.";
+        const bankInfo =
+          selectedBank === "TBC"
+            ? `🏦 Selected Bank: TBC Bank (${receiverText} / GE02TB7192545064300079)`
+            : `🏦 Selected Bank: Bank of Georgia (https://egreve.bog.ge/Laino)`;
+
+        let textLines = [];
+        textLines.push("*New Order - Laino Studio*");
+        textLines.push("------------------------");
+        textLines.push(`👤 Name: ${orderData.name}`);
+        textLines.push(`📞 Phone: ${orderData.phone}`);
+        textLines.push(`📍 Address: ${orderData.address}`);
+        textLines.push(`🚚 Delivery/Pickup Option: ${zoneName}`);
+        textLines.push(bankInfo);
+        textLines.push("");
+        textLines.push("*🛍️ Ordered Items:*");
+
+        cart.forEach((item, index) => {
+          const itemTitle = currentLang === "ka" ? item.titleKa : item.titleEn;
+          textLines.push(`${index + 1}. *${itemTitle}*`);
+          textLines.push(`   - Size: ${item.size}`);
+          textLines.push(`   - Qty: ${item.qty}`);
+          textLines.push(`   - Price: ₾${item.price * item.qty}.00`);
+          textLines.push("");
+        });
+
+        textLines.push("------------------------");
+        textLines.push(`*💰 Subtotal: ₾${subtotal}.00*`);
+        textLines.push(`*🚚 Delivery Fee: ₾${currentDeliveryFee}.00*`);
+        textLines.push(`*✅ GRAND TOTAL: ₾${grandTotal}.00*`);
+
+        const orderText = encodeURIComponent(textLines.join("\n"));
+        window.open(`https://wa.me/995558519496?text=${orderText}`, "_blank");
+
+        // Show Success, Hide Forms
+        document.getElementById("filled-cart-state").classList.add("hidden");
+        document.getElementById("checkout-success").classList.remove("hidden");
+
+        cart = [];
+        localStorage.removeItem("laino_cart");
+        updateCartCount();
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Apply the saved language first (only needed when it isn't the default Georgian)
+        if (currentLang !== "ka") applyLanguage();
+        renderMarquee();
+        updateCartCount();
+        updateTbcReceiver();
+        updateDeliveryFee();
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) entry.target.classList.add("active");
+            });
+          },
+          { threshold: 0.1 },
+        );
+        document
+          .querySelectorAll(".reveal")
+          .forEach((el) => observer.observe(el));
+      });
+    </script>
+  </body>
+</html>
